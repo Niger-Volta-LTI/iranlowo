@@ -1,0 +1,14 @@
+Development Status :: 1 - Alpha
+Environment :: Console
+Intended Audience :: Developers
+License :: OSI Approved :: MIT License
+Operating System :: MacOS :: MacOS X
+Operating System :: POSIX
+Operating System :: Unix
+Programming Language :: Python
+Programming Language :: Python :: 3
+Programming Language :: Python :: 3.6
+Programming Language :: Python :: 3.7
+Programming Language :: Python :: Implementation :: CPython
+Topic :: Software Development
+Topic :: Utilities
