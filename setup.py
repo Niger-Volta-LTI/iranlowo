@@ -8,8 +8,6 @@ download_url: archive/v{version}.tar.gz
 
 from setuptools import setup
 
-# The text of the README file
-README = (HERE / "README.md").read_text()
 
 setup(
     name="iranlowo",
