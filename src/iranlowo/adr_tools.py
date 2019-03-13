@@ -1,23 +1,42 @@
-from collections import defaultdict
-import unicodedata
 import re
+import unicodedata
+
+from collections import defaultdict
 
 
 def strip_accents(string):
+    """
+    Converts the string to NFD, separates & returns only the base characters
+    :param string:
+    :return: input string without diacritic adornments on base characters
+    """
     return ''.join(c for c in unicodedata.normalize('NFD', string)
                    if unicodedata.category(c) != 'Mn')
+
+
+def strip_accents_from_file(filename, outfilename):
+    """
+    Reads filename containing diacritics, converts to NFC for consistency,
+    then writes outfilename with diacritics removed
+    :param filename:
+    :param outfilename:
+    :return: None
+    """
+    text = ''.join(c for c in unicodedata.normalize('NFC', open(filename).read()))
+    try:
+        f = open(outfilename, 'w')
+    except EnvironmentError:
+        return False
+    else:
+        with f:
+            f.write(strip_accents(text))
+        return True
 
 
 def convert_to_NFC(filename, outfilename):
     text=''.join(c for c in unicodedata.normalize('NFC', open(filename).read()))
     with open(outfilename, 'w') as f:
         f.write(text)
-
-
-def strip_accents_from_file(filename, outfilename):
-    text=''.join(c for c in unicodedata.normalize('NFC', open(filename).read()))
-    with open(outfilename, 'w') as f:
-        f.write(strip_accents(text))
 
 
 def getFileStats(filename):
