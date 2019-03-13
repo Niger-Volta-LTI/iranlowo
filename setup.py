@@ -14,8 +14,8 @@ setup(
     version="1.0.0",
     setup_requires="setupmeta",
     versioning="dev",
-   	license="MIT",
-   	author="Ruoho Ruotsi",
+    license="MIT",
+    author="Ruoho Ruotsi",
     author_email="ruoho.ruotsi@gmail.com",
     description="Utility package for analysis & (pre)processing of Yorùbá text"
 )
