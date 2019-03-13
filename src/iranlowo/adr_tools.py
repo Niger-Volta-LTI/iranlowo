@@ -2,24 +2,23 @@ from collections import defaultdict
 import unicodedata
 import re
 
-ca_fr = "Montréal, über, 12.89, Mère, Françoise, noël, 889"
-yo_0= "ọjọ́ìbí 18 Oṣù Keje 1918 jẹ́ Ààrẹ Gúúsù Áfríkà"
-yo_1 = "Kí ó tó di ààrẹ"
-
 
 def strip_accents(string):
     return ''.join(c for c in unicodedata.normalize('NFD', string)
                    if unicodedata.category(c) != 'Mn')
+
 
 def convert_to_NFC(filename, outfilename):
     text=''.join(c for c in unicodedata.normalize('NFC', open(filename).read()))
     with open(outfilename, 'w') as f:
         f.write(text)
 
+
 def strip_accents_from_file(filename, outfilename):
     text=''.join(c for c in unicodedata.normalize('NFC', open(filename).read()))
     with open(outfilename, 'w') as f:
         f.write(strip_accents(text))
+
 
 def getFileStats(filename):
     print("\nFilename: " + filename)
@@ -123,8 +122,15 @@ def getFileStats(filename):
     print("# ambiguous 9 words : " + str(ambiguous_words_9))
 
 
-# For yoruba blog (and probably bibeli)
 def split_out_corpus_on_symbol(filename, outfilename, symbol=','):
+    """ 
+    For yoruba blog (and probably bibeli mimo)
+
+    Args: filenames for I/O and symbol to split lines on
+    Returns: writes outputfile
+    """
+
+
     lines = tuple(open(filename, 'r'))
 
     min_words_to_split = 10
@@ -175,9 +181,7 @@ def split_out_corpus_on_symbol(filename, outfilename, symbol=','):
 if __name__ == "__main__":
 
     # test
-    print(ca_fr, ": " ,strip_accents(ca_fr))
-    print(yo_0, ": " , strip_accents(yo_0))
-    print(yo_1, ": " ,strip_accents(yo_1))
+
 
     # getFileStats('data/LagosNWUspeech_corpus/all_transcripts.txt')
     # getFileStats('data/theyorubablog_corpus/theyorubablog_dot_com.txt')
