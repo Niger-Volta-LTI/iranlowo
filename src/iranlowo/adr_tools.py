@@ -22,7 +22,7 @@ def strip_accents_from_file(filename, outfilename):
     :param outfilename:
     :return: None
     """
-    text = ''.join(c for c in unicodedata.normalize('NFC', open(filename).read()))
+    text = ''.join(c for c in unicodedata.normalize('NFC', open(filename, encoding="utf-8").read()))
     try:
         f = open(outfilename, 'w')
     except EnvironmentError:
@@ -33,13 +33,13 @@ def strip_accents_from_file(filename, outfilename):
         return True
 
 
-def convert_to_NFC(filename, outfilename):
+def convert_to_nfc(filename, outfilename):
     text=''.join(c for c in unicodedata.normalize('NFC', open(filename).read()))
     with open(outfilename, 'w') as f:
         f.write(text)
 
 
-def getFileStats(filename):
+def file_stats(filename):
     print("\nFilename: " + filename)
     lines = tuple(open(filename, 'r'))
     num_utts = len(lines)
@@ -122,7 +122,6 @@ def getFileStats(filename):
         elif len(ambiguity_map[word]) == 9:
             print("# 9: " + str(ambiguity_map[word]))
 
-
     print("# unique ambiguous words : " + str(ambiguous_words))
     print("# total unique non-diacritized words : " + str(len(ambiguity_map)))
 
@@ -148,7 +147,6 @@ def split_out_corpus_on_symbol(filename, outfilename, symbol=','):
     Args: filenames for I/O and symbol to split lines on
     Returns: writes outputfile
     """
-
 
     lines = tuple(open(filename, 'r'))
 
@@ -207,11 +205,11 @@ if __name__ == "__main__":
     # getFileStats('data/BibeliYoruba_corpus/bibeli_ede_yoruba.txt')
     # getFileStats('data/BibeliYoruba_corpus/bibeli_ede_yoruba.txt')
 
-    getFileStats('seq2seq/nmt_data/yoruba_diacritics/train/tgt-train.txt')
-    getFileStats('seq2seq/nmt_data/yoruba_diacritics/test/tgt-test.txt')
+    file_stats('seq2seq/nmt_data/yoruba_diacritics/train/tgt-train.txt')
+    file_stats('seq2seq/nmt_data/yoruba_diacritics/test/tgt-test.txt')
 
-    getFileStats('seq2seq/nmt_data/yoruba_diacritics/train/src-train.txt')
-    getFileStats('seq2seq/nmt_data/yoruba_diacritics/test/src-test.txt')
+    file_stats('seq2seq/nmt_data/yoruba_diacritics/train/src-train.txt')
+    file_stats('seq2seq/nmt_data/yoruba_diacritics/test/src-test.txt')
 
     #
     # split_out_corpus_on_symbol('data/theyorubablog_corpus/theyorubablog_dot_com.txt')

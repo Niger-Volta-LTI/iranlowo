@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
+import filecmp
 import iranlowo
-
+import os
 
 def test_strip_accents():
     ca_fr = "Montréal, über, 12.89, Mère, Françoise, noël, 889"
@@ -14,17 +15,19 @@ def test_strip_accents():
 
 
 def test_strip_accents_from_file():
-    src_file = "./testdata/file1.txt"
-    target_file = "./testdata/file2.txt"
-    test_target_file = "./testdata/file3.txt"
+    cwd = os.getcwd()
+    src_file = cwd + "/tests/testdata/file1.txt"
+    target_file = cwd + "/tests/testdata/file2.txt"
+    test_target_file = cwd + "/tests/testdata/file3.txt"
 
-    assert(iranlowo.adr_tools.strip_accents_from_file(src_file, test_target_file) == True)
-    assert(target_file and test_target_file are identical)
+    assert(iranlowo.adr_tools.strip_accents_from_file(src_file, test_target_file) is True)
+    assert(filecmp.cmp(src_file, test_target_file) is False)
+    assert(filecmp.cmp(target_file, test_target_file))
 
-
-def test_convert_to_NFC():
-    nfd_file = "./testdata/nfd.txt"
-    target_file = "./testdata/file3.txt"
-
-    assert(iranlowo.adr_tools.convert_to_NFC(nfd_file, target_file) == True)
-    assert(target_file meets specs for NFD or matches a previously validated NFC file)
+#
+# def test_convert_to_nfc():
+#     nfd_file = "./testdata/nfd.txt"
+#     target_file = "./testdata/file3.txt"
+#
+#     assert(iranlowo.adr_tools.convert_to_NFC(nfd_file, target_file) == True)
+#     # assert(target_file meets specs for NFD or matches a previously validated NFC file)
