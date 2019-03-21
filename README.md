@@ -2,6 +2,8 @@
 Ìrànlọ́wọ́ is a set of utilities to analyze &amp; process Yorùbá text for NLP tasks. The initial focus is on help for diacritic restoration or machine translation.
 
 ## Features
+
+### ADR tools
 * Find all variants of all word-type in a given corpus
 * Compute a score of diacritic ambiguity in a given corpus
 * Canonicalize a corpus (from MS Word or elsewhere as NFC)
@@ -9,3 +11,9 @@
 * Strip all diacritics from word-types
 * Partially strip diacritics from word-types
 * Split long sentences on certain characters like `;`,`:`, etc
+
+### Ready to use webpage scrapers
+* Bíbélì Mímọ́
+* Yoruba Bible - Bible Society of Nigeria
+* Yorùbá Blog
+* BBC Yorùbá
