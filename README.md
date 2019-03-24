@@ -17,3 +17,8 @@
 * Yoruba Bible - Bible Society of Nigeria
 * Yorùbá Blog
 * BBC Yorùbá
+
+### Corpus analysis tools
+* Dataset scoring (proximity to correctly diacritized text, lm perplexity, KL divergence)
+* dataset character distribution
+* dataset ambuiguity statistics &rarr; Lexdif, etc
