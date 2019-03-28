@@ -24,6 +24,11 @@ def test_strip_accents_from_file():
     assert(filecmp.cmp(src_file, test_target_file) is False)
     assert(filecmp.cmp(target_file, test_target_file))
 
+
+def test_is_text_nfc():
+    assert(ránlọ.adr_tools.is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?") is False)  # NFD
+    assert(ránlọ.adr_tools.is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?") is True)  # NFC
+
 #
 # def test_convert_to_nfc():
 #     nfd_file = "./testdata/nfd.txt"
