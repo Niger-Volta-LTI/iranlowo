@@ -1,16 +1,18 @@
+# -*- coding: utf-8 -*-
+
 import re
 import unicodedata
 
 from collections import defaultdict
 
 
-def strip_accents(string):
+def strip_accents(text_string):
     """
     Converts the string to NFD, separates & returns only the base characters
-    :param string:
+    :param text_string:
     :return: input string without diacritic adornments on base characters
     """
-    return ''.join(c for c in unicodedata.normalize('NFD', string)
+    return ''.join(c for c in unicodedata.normalize('NFD', text_string)
                    if unicodedata.category(c) != 'Mn')
 
 
@@ -33,12 +35,6 @@ def strip_accents_from_file(filename, outfilename):
         return True
 
 
-def convert_to_nfc(filename, outfilename):
-    text = ''.join(c for c in unicodedata.normalize('NFC', open(filename).read()))
-    with open(outfilename, 'w') as f:
-        f.write(text)
-
-
 def is_text_nfc(text):
     nfc_text = ''.join(c for c in unicodedata.normalize('NFC', text))
     if nfc_text == text:
@@ -47,12 +43,23 @@ def is_text_nfc(text):
         return False
 
 
+def convert_file_to_nfc(filename, outfilename):
+    try:
+        text = ''.join(c for c in unicodedata.normalize('NFC', open(filename, encoding="utf-8").read()))
+        with open(outfilename, 'w', encoding="utf-8") as f:
+            f.write(text)
+    except EnvironmentError:
+        return False
+    else:
+        return True
+
+
 def file_stats(filename):
     print("\nFilename: " + filename)
     lines = tuple(open(filename, 'r'))
     num_utts = len(lines)
 
-    text = ''.join(c for c in unicodedata.normalize('NFC', open(filename).read()))
+    text = ''.join(c for c in unicodedata.normalize('NFC', open(filename, encoding="utf-8").read()))
     words = re.findall('\w+', text)
     num_words = len(words)
     num_chars = len(re.findall(r'\S', text))
@@ -161,7 +168,7 @@ def split_out_corpus_on_symbol(filename, outfilename, symbol=','):
     min_words_to_split = 10
     min_words_in_utt = 5
 
-    with open(outfilename, 'w') as f:
+    with open(outfilename, 'w', ) as f:
         # split out heavily comma'd text :((
         for line in lines:
             if symbol in line:
@@ -222,11 +229,6 @@ if __name__ == "__main__":
 
     #
     # split_out_corpus_on_symbol('data/theyorubablog_corpus/theyorubablog_dot_com.txt')
-
-    # strip accents
-    # strip_accents_from_file('yorubaspeechcorpus/all_transcripts.txt', 'yorubaspeechcorpus/all_transcripts_no_diacritics.txt')
-    # strip_accents_from_file('corpus/theyorubablog_dot_com.txt', 'corpus/theyorubablog_dot_com_no_diacritics.txt')
-    # strip_accents_from_file('/Users/iorife/github/yoruba-text/first_words.txt', '/Users/iorife/github/yoruba-text/first_words_ascii.txt')
 
     # convert from NFD to NFC
     # convert_to_NFC('data/LagosNWUspeech_corpus/all_transcripts.txt', 'data/LagosNWUspeech_corpus/all_transcripts_NFC.txt')
