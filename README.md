@@ -6,13 +6,14 @@
 ## Features
 
 ### ADR tools
-* Find all variants of all word-type in a given corpus
-* Compute a score of diacritic ambiguity in a given corpus
-* Canonicalize a corpus (from MS Word or elsewhere as NFC)
-* Convert corpora easily between NFC and NFD
 * Strip all diacritics from word-types
-* Partially strip diacritics from word-types
+* Verify that text is NFC or NFD
+* Canonicalize a corpus (from MS Word or elsewhere) &rarr; NFC
 * Split long sentences on certain characters like `;`,`:`, etc
+* Compute a score of diacritic ambiguity in a given corpus
+* Find all variants of all word-type in a given corpus
+* Automatically restore correct diacritics using a pre-trained model
+* Partially strip diacritics from word-types
 
 ### Ready to use webpage scrapers
 * Bíbélì Mímọ́
