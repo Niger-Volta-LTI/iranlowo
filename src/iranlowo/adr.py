@@ -54,9 +54,9 @@ def convert_file_to_nfc(filename, outfilename):
         return True
 
 
-def file_stats(filename):
+def file_info(filename):
     print("\nFilename: " + filename)
-    lines = tuple(open(filename, 'r'))
+    lines = tuple(open(filename, 'r', encoding="utf-8"))
     num_utts = len(lines)
 
     text = ''.join(c for c in unicodedata.normalize('NFC', open(filename, encoding="utf-8").read()))
@@ -215,23 +215,3 @@ if __name__ == "__main__":
     # test
     print(is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?"))  # NFD
     print(is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?"))  # NFC
-
-    # getFileStats('data/LagosNWUspeech_corpus/all_transcripts.txt')
-    # getFileStats('data/theyorubablog_corpus/theyorubablog_dot_com.txt')
-    # getFileStats('data/BibeliYoruba_corpus/bibeli_ede_yoruba.txt')
-    # getFileStats('data/BibeliYoruba_corpus/bibeli_ede_yoruba.txt')
-
-    # file_stats('seq2seq/nmt_data/yoruba_diacritics/train/tgt-train.txt')
-    # file_stats('seq2seq/nmt_data/yoruba_diacritics/test/tgt-test.txt')
-    #
-    # file_stats('seq2seq/nmt_data/yoruba_diacritics/train/src-train.txt')
-    # file_stats('seq2seq/nmt_data/yoruba_diacritics/test/src-test.txt')
-
-    #
-    # split_out_corpus_on_symbol('data/theyorubablog_corpus/theyorubablog_dot_com.txt')
-
-    # convert from NFD to NFC
-    # convert_to_NFC('data/LagosNWUspeech_corpus/all_transcripts.txt', 'data/LagosNWUspeech_corpus/all_transcripts_NFC.txt')
-    # convert_to_NFC('data/theyorubablog_corpus/theyorubablog_dot_com.txt', 'data/theyorubablog_corpus/theyorubablog_dot_com_NFC.txt')
-    # convert_to_NFC('data/BibeliYoruba_corpus/bibeli_ede_yoruba.txt', 'data/BibeliYoruba_corpus/bibeli_ede_yoruba_NFC.txt')
-    # convert_to_NFC('data/theyorubablog_corpus/theyorubablog_dot_com_JARA.txt', 'data/theyorubablog_corpus/theyorubablog_dot_com_JARA_NFC.txt')
