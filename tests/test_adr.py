@@ -41,3 +41,10 @@ def test_convert_file_to_nfc():
     assert(filecmp.cmp(nfd_filepath, processed_nfc_filepath) is False)              # src & processed are different
     assert(filecmp.cmp(reference_nfc_filepath, processed_nfc_filepath) is True)     # processed matches reference
 
+
+def test_file_info():
+    cwd = os.getcwd()
+    reference_nfc_filepath = cwd + "/tests/testdata/nfc.txt"
+    ránlọ.adr.file_info(reference_nfc_filepath)
+
+    # reference_nfc_filepath
