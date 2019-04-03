@@ -121,12 +121,27 @@ def scrape_chapter(url, bible_path):
     return text
 
 
-def rígba_bibeli(prefix, bible_path):
+def get_bible_text(bible_version_url, bíbélì_save_path):
+    """English named convience method"""
+    return rígba_bíbélì(bible_version_url, bíbélì_save_path)
 
-    for url_string in bible_strings(prefix):
+
+def rígba_oro_iwe_bíbélì(bíbélì_version_url, bíbélì_path):
+    """
+    get Bíbélì Mímọ́, save files under bíbélì_path
+
+    Parameters:
+    argument1 (string): bible url,  i.e.: "https://www.bible.com/bible/911/")
+    argument2 (string): bible_dest_path, where to save files, i.e.: "./bibeli_mimo_yoruba/
+
+    Returns: None
+    """
+
+    for url_string in bible_strings(bíbélì_version_url):
             print("Rígba: " + url_string)
-            blurb = scrape_chapter(url=url_string, bible_path=bible_path)
+            blurb = scrape_chapter(url=url_string, bible_path=bíbélì_path)
             time.sleep(5.5)
+    return True
 
 
 if __name__ == "__main__":
@@ -135,13 +150,13 @@ if __name__ == "__main__":
     bíbélì_version = "https://www.bible.com/bible/911/"
 
     # Yorùbá Bible - Bible Society of Nigeria
-    # prefix = "https://www.bible.com/bible/207/"
+    # bíbélì_version = "https://www.bible.com/bible/207/"
 
     # New International Version® NIV® - 2011 by Biblica, Inc.®
-    # prefix = "https://www.bible.com/bible/111/"
+    # bíbélì_version = "https://www.bible.com/bible/111/"
 
     # King James Version (KJV)
-    # prefix = "https://www.bible.com/bible/1/"
+    # bíbélì_version = "https://www.bible.com/bible/1/"
 
     bíbélì_path = "bibeli_mimo_yoruba_test/"
     rígba_bibeli(bíbélì_version, bíbélì_path)
