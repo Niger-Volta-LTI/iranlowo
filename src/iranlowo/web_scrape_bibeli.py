@@ -121,14 +121,14 @@ def scrape_chapter(url, bible_path):
     return text
 
 
-def get_bible_text(bible_version_url, bíbélì_save_path):
+def get_bible_text(bible_version_url, bíbélì_dest_path):
     """English named convience method"""
-    return rígba_bíbélì(bible_version_url, bíbélì_save_path)
+    return rígba_bíbélì(bible_version_url, bíbélì_dest_path)
 
 
-def rígba_oro_iwe_bíbélì(bíbélì_version_url, bíbélì_path):
+def rígba_bíbélì(bíbélì_version_url, bíbélì_dest_path):
     """
-    get Bíbélì Mímọ́, save files under bíbélì_path
+    Rígba ọ̀rọ̀ ìwé bíbélì - get Bíbélì Mímọ́, save files under bíbélì_path
 
     Parameters:
     argument1 (string): bible url,  i.e.: "https://www.bible.com/bible/911/")
@@ -138,8 +138,8 @@ def rígba_oro_iwe_bíbélì(bíbélì_version_url, bíbélì_path):
     """
 
     for url_string in bible_strings(bíbélì_version_url):
-            print("Rígba: " + url_string)
-            blurb = scrape_chapter(url=url_string, bible_path=bíbélì_path)
+            print("Rígba ọ̀rọ̀ ìwé " + url_string)
+            blurb = scrape_chapter(url=url_string, bible_path=bíbélì_dest_path)
             time.sleep(5.5)
     return True
 
@@ -159,4 +159,4 @@ if __name__ == "__main__":
     # bíbélì_version = "https://www.bible.com/bible/1/"
 
     bíbélì_path = "bibeli_mimo_yoruba_test/"
-    rígba_bibeli(bíbélì_version, bíbélì_path)
+    rígba_bíbélì(bíbélì_version, bíbélì_path)
