@@ -43,6 +43,10 @@ def is_text_nfc(text):
         return False
 
 
+def convert_text_to_nfc(text):
+    return unicodedata.normalize('NFC', text)
+
+
 def convert_file_to_nfc(filename, outfilename):
     try:
         text = ''.join(c for c in unicodedata.normalize('NFC', open(filename, encoding="utf-8").read()))
@@ -155,7 +159,7 @@ def file_info(filename):
     print("# ambiguous 9 words : " + str(ambiguous_words_9))
 
 
-def split_out_corpus_on_symbol(filename, outfilename, symbol=','):
+def split_corpus_on_symbol(filename, outfilename, symbol=','):
     """ 
     For yoruba blog (and probably bibeli mimo)
 
@@ -163,7 +167,7 @@ def split_out_corpus_on_symbol(filename, outfilename, symbol=','):
     Returns: writes outputfile
     """
 
-    lines = tuple(open(filename, 'r'))
+    lines = tuple(open(filename, 'r', encoding="utf-8"))
 
     min_words_to_split = 10
     min_words_in_utt = 5
