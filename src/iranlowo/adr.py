@@ -6,7 +6,7 @@ import unicodedata
 from collections import defaultdict
 
 
-def strip_accents(text_string):
+def strip_accents_text(text_string):
     """
     Converts the string to NFD, separates & returns only the base characters
     :param text_string:
@@ -16,7 +16,7 @@ def strip_accents(text_string):
                    if unicodedata.category(c) != 'Mn')
 
 
-def strip_accents_from_file(filename, outfilename):
+def strip_accents_file(filename, outfilename):
     """
     Reads filename containing diacritics, converts to NFC for consistency,
     then writes outfilename with diacritics removed
@@ -31,11 +31,12 @@ def strip_accents_from_file(filename, outfilename):
         return False
     else:
         with f:
-            f.write(strip_accents(text))
+            f.write(strip_accents_text(text))
         return True
 
 
 def is_text_nfc(text):
+    """Validate unicode form of given text"""
     nfc_text = ''.join(c for c in unicodedata.normalize('NFC', text))
     if nfc_text == text:
         return True
@@ -43,11 +44,13 @@ def is_text_nfc(text):
         return False
 
 
-def convert_text_to_nfc(text):
-    return unicodedata.normalize('NFC', text)
+def normalize_diacritics_text(text_string):
+    """Convenience wrapper to abstract away unicode & NFC"""
+    return unicodedata.normalize('NFC', text_string)
 
 
-def convert_file_to_nfc(filename, outfilename):
+def normalize_diacritics_file(filename, outfilename):
+    """File based Convenience wrapper to abstract away unicode & NFC"""
     try:
         text = ''.join(c for c in unicodedata.normalize('NFC', open(filename, encoding="utf-8").read()))
         with open(outfilename, 'w', encoding="utf-8") as f:
@@ -59,6 +62,8 @@ def convert_file_to_nfc(filename, outfilename):
 
 
 def file_info(filename):
+    """File based Convenience wrapper to abstract away unicode & NFC"""
+
     print("\nFilename: " + filename)
     lines = tuple(open(filename, 'r', encoding="utf-8"))
     num_utts = len(lines)
@@ -79,7 +84,7 @@ def file_info(filename):
     # unaccented word stats
     unaccented_words = 0
     for word in words:
-        if word == strip_accents(word):
+        if word == strip_accents_text(word):
             unaccented_words += 1
 
     print("# total words: " + str(num_words))
@@ -88,7 +93,7 @@ def file_info(filename):
     # ambiguous word stats
     ambiguity_map = defaultdict(set)
     for word in words:
-        no_accents = strip_accents(word)
+        no_accents = strip_accents_text(word)
         ambiguity_map[no_accents].add(word)
 
     ambiguous_words = 0
@@ -165,6 +170,10 @@ def split_corpus_on_symbol(filename, outfilename, symbol=','):
 
     Args: filenames for I/O and symbol to split lines on
     Returns: writes outputfile
+    :param filename: input file
+    :param outfilename: processed output file to write
+    :param symbol: to split lines on
+    :return: None, with side-effect of writing an outputfile
     """
 
     lines = tuple(open(filename, 'r', encoding="utf-8"))
