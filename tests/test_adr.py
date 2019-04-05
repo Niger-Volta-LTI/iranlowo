@@ -5,7 +5,7 @@ import iranlowo as ránlọ
 import os
 
 
-def test_strip_accents():
+def test_strip_accents_text():
     ca_fr = "Montréal, über, 12.89, Mère, Françoise, noël, 889"
     yo_0 = "ọjọ́ìbí 18 Oṣù Keje 1918 jẹ́ Ààrẹ Gúúsù Áfríkà"
     yo_1 = "Kí ó tó di ààrẹ"
@@ -15,7 +15,7 @@ def test_strip_accents():
     assert ránlọ.adr.strip_accents_text(yo_1) == "Ki o to di aare"
 
 
-def test_strip_accents_from_file():
+def test_strip_accents_file():
     cwd = os.getcwd()
     src_filepath = cwd + "/tests/testdata/src_file.txt"
     reference_stripped_filepath = cwd + "/tests/testdata/ref_proccessed_file.txt"
@@ -31,7 +31,7 @@ def test_is_text_nfc():
     assert(ránlọ.adr.is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?") is True)   # NFC
 
 
-def test_convert_file_to_nfc():
+def test_normalize_diacritics_file():
     cwd = os.getcwd()
     nfd_filepath = cwd + "/tests/testdata/nfd.txt"
     reference_nfc_filepath = cwd + "/tests/testdata/nfc.txt"
