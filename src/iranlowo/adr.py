@@ -228,3 +228,5 @@ if __name__ == "__main__":
     # test
     print(is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?"))  # NFD
     print(is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?"))  # NFC
+
+    file_info("../../tests/testdata/nfc.txt")
