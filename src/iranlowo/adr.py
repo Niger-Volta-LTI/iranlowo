@@ -62,7 +62,7 @@ def normalize_diacritics_file(filename, outfilename):
 
 
 def file_info(filename):
-    """File based Convenience wrapper to abstract away unicode & NFC"""
+    """File metadata useful for various ADR tasks"""
 
     print("\nFilename: " + filename)
     lines = tuple(open(filename, 'r', encoding="utf-8"))
