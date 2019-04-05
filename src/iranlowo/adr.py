@@ -65,6 +65,8 @@ def file_info(filename):
     """File metadata useful for various ADR tasks"""
 
     print("\nFilename: " + filename)
+    print("---------------------------------")
+
     lines = tuple(open(filename, 'r', encoding="utf-8"))
     num_utts = len(lines)
 
@@ -89,6 +91,7 @@ def file_info(filename):
 
     print("# total words: " + str(num_words))
     print("# unaccented words : " + str(unaccented_words))
+    print("-----------------------------------------------")
 
     # ambiguous word stats
     ambiguity_map = defaultdict(set)
@@ -129,8 +132,8 @@ def file_info(filename):
 
     # print ambiguity map
     for word in ambiguity_map:
-        # if len(ambiguity_map[word]) == 2:
-        # el
+        if len(ambiguity_map[word]) == 2:
+            print("# 2: " + str(ambiguity_map[word]))
         if len(ambiguity_map[word]) == 3:
             print("# 3: " + str(ambiguity_map[word]))
         elif len(ambiguity_map[word]) == 4:
@@ -154,6 +157,7 @@ def file_info(filename):
         unique_all_words.add(word)
 
     print("# total unique words : " + str(len(unique_all_words)))
+    print("-----------------------------------------------")
     print("# ambiguous 2 words : " + str(ambiguous_words_2))
     print("# ambiguous 3 words : " + str(ambiguous_words_3))
     print("# ambiguous 4 words : " + str(ambiguous_words_4))
