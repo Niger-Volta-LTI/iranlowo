@@ -12,7 +12,7 @@ from setuptools import setup
 setup(
     name="iranlowo",
     setup_requires="setupmeta",
-    # versioning="dev", # iohavoc this probably should be "distance" as we start from 0.0.0 using v{major}.{minor}.0
+    versioning="distance",  # we start from 0.0.0 using v{major}.{minor}.0
     license="MIT",
     author="Ruoho Ruotsi ruoho.ruotsi@gmail.com",
     description="Utility package for analysis & (pre)processing of Yorùbá text"
