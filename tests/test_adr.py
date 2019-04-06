@@ -29,6 +29,10 @@ def test_strip_accents_file():
 def test_is_text_nfc():
     assert(ránlọ.adr.is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?") is False)  # NFD
     assert(ránlọ.adr.is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?") is True)   # NFC
+    
+    # cover diacritics that have both accents and underdots
+    assert(ránlọ.adr.is_text_nfc("kòsí ǹǹkan tó le ń’bẹ̀ pé káa ṣẹ̀sìn-ìn ’dílé è") is False)  # NFD
+    assert(ránlọ.adr.is_text_nfc("kòsí ǹǹkan tó le ń’bẹ̀ pé káa ṣẹ̀sìn-ìn ’dílé è") is True)   # NFC
 
 
 def test_normalize_diacritics_file():

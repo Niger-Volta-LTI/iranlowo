@@ -11,11 +11,9 @@ from setuptools import setup
 
 setup(
     name="iranlowo",
-    version="1.0.0",
     setup_requires="setupmeta",
-    versioning="dev",
+    # versioning="dev", # iohavoc this probably should be "distance" as we start from 0.0.0 using v{major}.{minor}.0
     license="MIT",
-    author="Ruoho Ruotsi",
-    author_email="ruoho.ruotsi@gmail.com",
+    author="Ruoho Ruotsi ruoho.ruotsi@gmail.com",
     description="Utility package for analysis & (pre)processing of Yorùbá text"
 )
