@@ -1,6 +1,9 @@
-[![Build Status](https://travis-ci.com/ruohoruotsi/iranlowo.svg?token=DjfQAQyyoxFCdeCmWju3&branch=master)](https://travis-ci.com/ruohoruotsi/iranlowo)
-
 # Ìrànlọ́wọ́
+[![Build Status](https://travis-ci.com/ruohoruotsi/iranlowo.svg?token=DjfQAQyyoxFCdeCmWju3&branch=master)](https://travis-ci.com/ruohoruotsi/iranlowo)
+[![PyPI](https://img.shields.io/pypi/v/iranlowo.svg)](https://pypi.org/project/iranlowo)
+[![License](https://black.readthedocs.io/en/stable/_static/license.svg)](https://github.com/ruohoruotsi/iranlowo/blob/master/LICENSE)
+[![Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+
 Ìrànlọ́wọ́ is a set of utilities to analyze &amp; process Yorùbá text for NLP tasks. The initial focus is on help for diacritic restoration or machine translation.
 
 ## Features
