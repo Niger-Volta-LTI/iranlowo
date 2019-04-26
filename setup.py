@@ -15,5 +15,5 @@ setup(
     versioning="distance",  # we start from 0.0.0 using v{major}.{minor}.0
     license="MIT",
     author="Ruoho Ruotsi ruoho.ruotsi@gmail.com",
-    description="Utility package for analysis & (pre)processing of Yorùbá text"
+    description="Utility package for analysis & (pre)processing of Yorùbá text",
 )
