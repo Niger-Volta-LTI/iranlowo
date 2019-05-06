@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 """
 url: https://github.com/Niger-Volta-LTI
@@ -16,4 +17,6 @@ setup(
     license="MIT",
     author="Ruoho Ruotsi ruoho.ruotsi@gmail.com",
     description="Utility package for analysis & (pre)processing of Yorùbá text",
+    include_package_data=True,
+    package_data={'iranlowo': ['models/yo_adr_bahdanau_lstm_128_1_1_step_100000_release.pt']}
 )
