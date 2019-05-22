@@ -65,3 +65,9 @@ def test_file_info():
 #     assert(filecmp.cmp(reference_multiline_split_filepath, processed_multiline_split_filepath) is True)     # processed matches reference
 #
 #     # try different punctuation ',', ':', etc?
+
+
+def test_diacritize_text():
+    predictions = ránlọ.adr.diacritize_text("awon okunrin nse ise agbara bi ise ode")
+    assert(predictions == "àwọn ọkùnrin nṣe iṣẹ́ agbára bí iṣẹ́ ọdẹ")   # generated matches reference
+    assert(predictions != "awọn ọkùnrin nṣe iṣẹ́ agbára bí iṣẹ́ ọdẹ")   # generated does not match incorrect reference

@@ -98,7 +98,7 @@ class Translator(object):
             random_sampling_topk=1,
             random_sampling_temp=1,
             stepwise_penalty=None,
-            dump_beam=False,
+            dump_beam=True,
             block_ngram_repeat=0,
             ignore_when_blocking=frozenset(),
             replace_unk=False,
