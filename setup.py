@@ -4,11 +4,13 @@
 """
 url: https://github.com/Niger-Volta-LTI
 download_url: archive/v{version}.tar.gz
+
+package_data={'iranlowo': ['models/yo_adr_bahdanau_lstm_128_1_1_step_100000_release.pt']}
 """
 
 
 from setuptools import setup
-
+from setuptools import find_packages
 
 setup(
     name="iranlowo",
@@ -17,6 +19,7 @@ setup(
     license="MIT",
     author="Ruoho Ruotsi ruoho.ruotsi@gmail.com",
     description="Utility package for analysis & (pre)processing of Yorùbá text",
-    include_package_data=True,
-    package_data={'iranlowo': ['models/yo_adr_bahdanau_lstm_128_1_1_step_100000_release.pt']}
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
+    include_package_data=True
 )
