@@ -15,12 +15,11 @@ after_success:
   - tox -e coverage,codecov
 
 deploy:
-  matrix:
   - provider: pypi
     user: ruohoruotsi
-    distributions: sdist bdist_wheel --universal
     password:
       secure: WkTOKmWFqscaNC8sgCzYwgdxWsUZcOPaPMoFMFNoUONTDAQOTun9WU2F5AIA5ROJhDVeE4Y4ipkjxDu6lu33CWOdSgQfL/MqilzyDaygLFyY/ID28/omew6bonuNBAjbPOJn2Ke9mtc+rCqmBMHhbuxounYWSlkfRvFn0M68Q+xwogzCppNB00dLRZWeIW7WSttX3zkYRN/UtUWPoukAxcmmVovCgwYws+tlWkLpg7N9ONOAUghDvzfmJLPcSxI+mQ9GVCT/UlcaBAHRLOZtPHb+nNlqrky5qtLCwLi3MrfUdSmoJk3/tMyd7n4aJsoySFYm4yHzU49QqSEWxayvOLEz4W1bAtaEVrOWGNXxmHd64EANx5nabQZMC9POXuAYoERjRzTIGoKGtvObjLAoHNaCcESTgwyZTbx9xSHGmqMprHDJkyK6GZwvMsKMEuM4sWoqb0TvyJ3eefsF7B/BAAZcCM/tG1EdYZFmORdGuUyxVFswTcoIgbnAGX1kGNZedm3OUVgD6ymnyU2ZJzU8EzCmSnYDxx+RBanDt3acSHQqo/4SObc2bCFP8qXx8niGBGE8gb/9ZlCQi3ZSbesFZ3Ms+Q4HXIjcECY4uLqY1yXvj2XiJDjvP717ScDeO2xoJhovapmZofNACwuITPE2wJO6RxPbZjsMrREfTN/jN4A=
+    distributions: "sdist bdist_wheel --universal"
     on:
       python: 3.6
       repo: ruohoruotsi/iranlowo
