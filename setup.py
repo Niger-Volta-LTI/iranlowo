@@ -16,7 +16,7 @@ from setuptools import find_packages
 
 setup(
     name="iranlowo",
-    version='0.0.5.1',
+    version='0.0.5.2',
     setup_requires="setupmeta",
     license="MIT",
     author="Ruoho Ruotsi ruoho.ruotsi@gmail.com",
