@@ -76,6 +76,10 @@ def test_diacritize_text():
     assert(predictions == "nítorí náà")   # generated matches reference
     assert(predictions != "nitorí náà")   # generated does not match incorrect reference
 
+    predictions = ránlọ.diacritize_text("leyin oro mi won ko tun soro mo")
+    assert(predictions == "lẹ́yìn ọ̀rọ̀ mi wọn kò tún sọ̀rọ̀ mọ́")   # generated matches reference
+    assert(predictions != "lẹ́yìn ọ̀rọ̀ mi won kò tún sọ̀rọ̀ mọ́")   # generated does not match incorrect reference
+
     predictions = ránlọ.diacritize_text("awon okunrin nse ise agbara bi ise ode")
     assert(predictions == "àwọn ọkùnrin nṣe iṣẹ́ agbára bí iṣẹ́ ọdẹ")   # generated matches reference
     assert(predictions != "awọn ọkùnrin nṣe iṣẹ́ agbára bí iṣẹ́ ọdẹ")   # generated does not match incorrect reference
