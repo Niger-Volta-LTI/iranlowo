@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import filecmp
-import iranlowo as ránlọ
+import iranlowo.adr as ránlọ
 import os
 
 
@@ -10,9 +10,9 @@ def test_strip_accents_text():
     yo_0 = "ọjọ́ìbí 18 Oṣù Keje 1918 jẹ́ Ààrẹ Gúúsù Áfríkà"
     yo_1 = "Kí ó tó di ààrẹ"
 
-    assert ránlọ.adr.strip_accents_text(ca_fr) == "Montreal, uber, 12.89, Mere, Francoise, noel, 889"
-    assert ránlọ.adr.strip_accents_text(yo_0) == "ojoibi 18 Osu Keje 1918 je Aare Guusu Afrika"
-    assert ránlọ.adr.strip_accents_text(yo_1) == "Ki o to di aare"
+    assert ránlọ.strip_accents_text(ca_fr) == "Montreal, uber, 12.89, Mere, Francoise, noel, 889"
+    assert ránlọ.strip_accents_text(yo_0) == "ojoibi 18 Osu Keje 1918 je Aare Guusu Afrika"
+    assert ránlọ.strip_accents_text(yo_1) == "Ki o to di aare"
 
 
 def test_strip_accents_file():
@@ -21,18 +21,18 @@ def test_strip_accents_file():
     reference_stripped_filepath = cwd + "/tests/testdata/ref_proccessed_file.txt"
     processed_stripped_filepath = cwd + "/tests/testdata/processed_file.txt"
 
-    assert(ránlọ.adr.strip_accents_file(src_filepath, processed_stripped_filepath) is True)  # job completed
+    assert(ránlọ.strip_accents_file(src_filepath, processed_stripped_filepath) is True)  # job completed
     assert(filecmp.cmp(src_filepath, processed_stripped_filepath) is False)         # src & processed are different
     assert(filecmp.cmp(reference_stripped_filepath, processed_stripped_filepath))   # processed matches reference
 
 
 def test_is_text_nfc():
-    assert(ránlọ.adr.is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?") is False)  # NFD
-    assert(ránlọ.adr.is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?") is True)   # NFC
+    assert(ránlọ.is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?") is False)  # NFD
+    assert(ránlọ.is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?") is True)   # NFC
     
     # cover diacritics that have both accents and underdots
-    assert(ránlọ.adr.is_text_nfc("kòsí ǹǹkan tó le ń’bẹ̀ pé káa ṣẹ̀sìn-ìn ’dílé è") is False)  # NFD
-    assert(ránlọ.adr.is_text_nfc("kòsí ǹǹkan tó le ń’bẹ̀ pé káa ṣẹ̀sìn-ìn ’dílé è") is True)   # NFC
+    assert(ránlọ.is_text_nfc("kòsí ǹǹkan tó le ń’bẹ̀ pé káa ṣẹ̀sìn-ìn ’dílé è") is False)  # NFD
+    assert(ránlọ.is_text_nfc("kòsí ǹǹkan tó le ń’bẹ̀ pé káa ṣẹ̀sìn-ìn ’dílé è") is True)   # NFC
 
 
 def test_normalize_diacritics_file():
@@ -41,7 +41,7 @@ def test_normalize_diacritics_file():
     reference_nfc_filepath = cwd + "/tests/testdata/nfc.txt"
     processed_nfc_filepath = cwd + "/tests/testdata/processed_nfc.txt"
 
-    assert(ránlọ.adr.normalize_diacritics_file(nfd_filepath, processed_nfc_filepath) is True)  # job completed
+    assert(ránlọ.normalize_diacritics_file(nfd_filepath, processed_nfc_filepath) is True)  # job completed
     assert(filecmp.cmp(nfd_filepath, processed_nfc_filepath) is False)              # src & processed are different
     assert(filecmp.cmp(reference_nfc_filepath, processed_nfc_filepath) is True)     # processed matches reference
 
@@ -49,7 +49,7 @@ def test_normalize_diacritics_file():
 def test_file_info():
     cwd = os.getcwd()
     reference_nfc_filepath = cwd + "/tests/testdata/nfc.txt"
-    ránlọ.adr.file_info(reference_nfc_filepath)
+    ránlọ.file_info(reference_nfc_filepath)
 
     # reference_nfc_filepath
 
@@ -59,7 +59,7 @@ def test_file_info():
 #     reference_multiline_split_filepath = "/tests/testdata/multiline.split.txt"
 #     processed_multiline_split_filepath = "/tests/testdata/processed_multiline.split.txt"
 #
-#     assert(ránlọ.adr.split_out_corpus_on_symbol(multiline_filepath,
+#     assert(ránlọ.split_out_corpus_on_symbol(multiline_filepath,
 #                                                  reference_multiline_split_filepath, ',') is True)  # job completed
 #     assert(filecmp.cmp(multiline_filepath, reference_multiline_split_filepath) is False)              # src & processed are different
 #     assert(filecmp.cmp(reference_multiline_split_filepath, processed_multiline_split_filepath) is True)     # processed matches reference
@@ -68,6 +68,35 @@ def test_file_info():
 
 
 def test_diacritize_text():
-    predictions = ránlọ.adr.diacritize_text("awon okunrin nse ise agbara bi ise ode")
+    predictions = ránlọ.diacritize_text("okunrin")
+    assert(predictions == "ọkùnrin")   # generated matches reference
+    assert(predictions != "ọkunrin")   # generated does not match incorrect reference
+
+    predictions = ránlọ.diacritize_text("nitori naa")
+    assert(predictions == "nítorí náà")   # generated matches reference
+    assert(predictions != "nitorí náà")   # generated does not match incorrect reference
+
+    predictions = ránlọ.diacritize_text("awon okunrin nse ise agbara bi ise ode")
     assert(predictions == "àwọn ọkùnrin nṣe iṣẹ́ agbára bí iṣẹ́ ọdẹ")   # generated matches reference
     assert(predictions != "awọn ọkùnrin nṣe iṣẹ́ agbára bí iṣẹ́ ọdẹ")   # generated does not match incorrect reference
+
+    predictions = ránlọ.diacritize_text("ati beebee lo")
+    assert(predictions == "àti bẹ́ẹ̀bẹ́ẹ̀ lọ")   # generated matches reference
+    assert(predictions != "ati bẹ́ẹ̀bẹ́ẹ̀ lọ")   # generated does not match incorrect reference
+
+    # predictions = ránlọ.diacritize_text("bee ni gbobgo ise ago naa ti ago ajo pari")
+    # assert(predictions == "bẹ́ẹ̀ ni gbogbo iṣẹ́ àgọ́ náà ti àgọ́ àjọ parí")   # generated matches reference
+    # assert(predictions != "bẹ́ẹ̀ ni gbogbo iṣẹ́ àgọ́ náà ti àgọ́ àjọ parí")   # generated does not match incorrect reference
+
+    # predictions = ránlọ.diacritize_text("bi ase nlo yii")
+    # assert(predictions == "bí aṣe ńlọ yìí")   # generated matches reference
+    # assert(predictions != "bí ase ńlọ yìí")   # generated does not match incorrect reference
+
+    # predictions = ránlọ.diacritize_text("o dabi pe")
+    # assert(predictions == "ó dàbí pé")   # generated matches reference
+    # assert(predictions != "ó dàbí pe")   # generated does not match incorrect reference
+
+    # predictions = ránlọ.diacritize_text("sugbon")
+    # assert(predictions == "ṣùgbọ́n")   # generated matches reference
+    # assert(predictions != "ṣugbọ́n")   # generated does not match incorrect reference
+
