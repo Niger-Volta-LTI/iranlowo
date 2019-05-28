@@ -1,4 +1,6 @@
 bs4
 configargparse
-git+https://github.com/pytorch/text
 torch==1.0.1
+numpy
+requests
+tqdm
