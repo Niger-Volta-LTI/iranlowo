@@ -263,7 +263,7 @@ def split_corpus_on_symbol(filename, outfilename, symbol=","):
                 f.write(line)
 
 
-def diacritize_text(undiacritized_text):
+def diacritize_text(undiacritized_text, verbose=False):
 
     # manually construct the options so we don't have to pass them in.
     opt = Namespace()
@@ -309,7 +309,7 @@ def diacritize_text(undiacritized_text):
     opt.src_dir = ''
     opt.stepwise_penalty = False
     opt.tgt = None
-    opt.verbose = True
+    opt.verbose = verbose
     opt.window = 'hamming'
     opt.window_size = 0.02
     opt.window_stride = 0.01
