@@ -6,17 +6,11 @@ from __future__ import unicode_literals
 import pkg_resources
 import re
 import unicodedata
-from collections import defaultdict
-# from itertools import repeat
 
-# from onmt.utils.logging import init_logger
-# from onmt.utils.misc import split_corpus
+from argparse import Namespace
+from collections import defaultdict
 from onmt.translate.translator import build_translator
 from onmt.utils.parse import ArgumentParser
-
-print(__package__)
-print(__name__)
-from argparse import Namespace
 
 
 def strip_accents_text(text_string):
@@ -314,29 +308,17 @@ def diacritize_text(undiacritized_text, verbose=False):
     opt.window_size = 0.02
     opt.window_stride = 0.01
 
-    # opt.models = ['models/yo_adr_bahdanau_lstm_128_1_1_step_100000_release.pt']
     model_path = 'models/yo_adr_bahdanau_lstm_128_1_1_step_100000_release.pt'
     opt.models = [pkg_resources.resource_filename(__name__, model_path)]
 
     # do work
     ArgumentParser.validate_translate_opts(opt)
-    # logger = init_logger(opt.log_file)
-
     translator = build_translator(opt, report_score=True)
-    # src_shards = split_corpus(opt.src, opt.shard_size)
-    # src_shards = IOHAVOC # a list of bytes [b'awon okunrin nse agbara bi ise ode]
 
     # src_shard = ["awon okunrin nse ise agbara bi ise ode".encode('ascii')]
     src_shard = [undiacritized_text.encode('ascii')]
     tgt_shard = None
 
-    # IOHAVOC good for decoding batches, which isn't really what we're doing here
-    # tgt_shards = split_corpus(opt.tgt, opt.shard_size) \
-    #     if opt.tgt is not None else repeat(None)
-    # shard_pairs = zip(src_shards, tgt_shards)
-    #
-    # for i, (src_shard, tgt_shard) in enumerate(shard_pairs):
-    # logger.info("Translating shard %d." % i)
     score, prediction = translator.translate(
         src=src_shard,
         tgt=tgt_shard,
@@ -345,6 +327,7 @@ def diacritize_text(undiacritized_text, verbose=False):
         attn_debug=opt.attn_debug
     )
     return prediction[0][0]
+
 
 if __name__ == "__main__":
 
