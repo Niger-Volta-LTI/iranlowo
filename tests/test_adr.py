@@ -88,7 +88,7 @@ def test_diacritize_text():
     assert(predictions == "àti bẹ́ẹ̀bẹ́ẹ̀ lọ")   # generated matches reference
     assert(predictions != "ati bẹ́ẹ̀bẹ́ẹ̀ lọ")   # generated does not match incorrect reference
 
-    # predictions = ránlọ.diacritize_text("bee ni gbobgo ise ago naa ti ago ajo pari")
+    # predictions = ránlọ.diacritize_text("bee ni gbogbo ise ago naa ti ago ajo pari")
     # assert(predictions == "bẹ́ẹ̀ ni gbogbo iṣẹ́ àgọ́ náà ti àgọ́ àjọ parí")   # generated matches reference
     # assert(predictions != "bẹ́ẹ̀ ni gbogbo iṣẹ́ àgọ́ náà ti àgọ́ àjọ parí")   # generated does not match incorrect reference
 
