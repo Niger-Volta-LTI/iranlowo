@@ -1,1 +1,1 @@
-include src/iranlowo/models/yo_adr_bahdanau_lstm_128_1_1_step_100000_release.pt
+include src/iranlowo/models/yo_adr_soft_attention_release.pt

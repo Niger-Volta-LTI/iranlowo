@@ -308,7 +308,7 @@ def diacritize_text(undiacritized_text, verbose=False):
     opt.window_size = 0.02
     opt.window_stride = 0.01
 
-    model_path = 'models/yo_adr_bahdanau_lstm_128_1_1_step_100000_release.pt'
+    model_path = 'models/yo_adr_soft_attention_release.pt'
     opt.models = [pkg_resources.resource_filename(__name__, model_path)]
 
     # do work

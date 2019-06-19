@@ -81,7 +81,7 @@ def test_diacritize_text():
     assert(predictions != "lẹ́yìn ọ̀rọ̀ mi won kò tún sọ̀rọ̀ mọ́")   # generated does not match incorrect reference
 
     predictions = ránlọ.diacritize_text("awon okunrin nse ise agbara bi ise ode")
-    assert(predictions == "àwọn ọkùnrin nṣe iṣẹ́ agbára bí iṣẹ́ ọdẹ")   # generated matches reference
+    assert(predictions == "àwọn ọkùnrin nṣe iṣẹ́ agbára bí iṣẹ́ òde")   # generated matches reference
     assert(predictions != "awọn ọkùnrin nṣe iṣẹ́ agbára bí iṣẹ́ ọdẹ")   # generated does not match incorrect reference
 
     predictions = ránlọ.diacritize_text("ati beebee lo")
@@ -96,11 +96,11 @@ def test_diacritize_text():
     # assert(predictions == "bí aṣe ńlọ yìí")   # generated matches reference
     # assert(predictions != "bí ase ńlọ yìí")   # generated does not match incorrect reference
 
-    # predictions = ránlọ.diacritize_text("o dabi pe")
-    # assert(predictions == "ó dàbí pé")   # generated matches reference
-    # assert(predictions != "ó dàbí pe")   # generated does not match incorrect reference
+    predictions = ránlọ.diacritize_text("o dabi pe")
+    assert(predictions == "ó dàbí pé")   # generated matches reference
+    assert(predictions != "ó dàbí pe")   # generated does not match incorrect reference
 
-    # predictions = ránlọ.diacritize_text("sugbon")
-    # assert(predictions == "ṣùgbọ́n")   # generated matches reference
-    # assert(predictions != "ṣugbọ́n")   # generated does not match incorrect reference
+    predictions = ránlọ.diacritize_text("sugbon")
+    assert(predictions == "ṣùgbọ́n")   # generated matches reference
+    assert(predictions != "ṣugbọ́n")   # generated does not match incorrect reference
 
