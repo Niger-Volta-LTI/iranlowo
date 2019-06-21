@@ -283,7 +283,6 @@ def diacritize_text(undiacritized_text, verbose=False):
     opt.max_length = 100
     opt.max_sent_length = None
     opt.min_length = 0
-    opt.models = ['models/yo_adr_bahdanau_lstm_128_1_1_step_100000_release.pt']
     opt.n_best = 1
     opt.output = 'pred.txt'
     opt.phrase_table = ''

@@ -20,7 +20,7 @@ setup(
     setup_requires="setupmeta",
     license="MIT",
     author="Ruoho Ruotsi ruoho.ruotsi@gmail.com",
-    description="Utility package for analysis & (pre)processing of Yorùbá text",
+    description="Utility library for analysis & (pre)processing of Yorùbá text",
     packages=find_packages('src'),
     package_dir={'': 'src'},
     include_package_data=True
