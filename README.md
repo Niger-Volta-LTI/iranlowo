@@ -28,3 +28,22 @@
 * [X] Dataset character distribution
 * [X] Dataset ambuiguity statistics &rarr; Lexdif, etc for a given corpus
 * [ ] Dataset scoring (proximity to correctly diacritized text, LM perplexity, KL divergence)
+
+## Installation
+Available on the [Python Package Index (PyPI)](https://pypi.org/project/iranlowo/) &rarr; install with `pip install iranlowo`
+
+## Example
+
+* Show environment and install
+
+![webpage](docs/install.gif)
+
+* Diacritize a few phrases
+
+![webpage](docs/adr.gif)
+
+## Disclaimer
+
+This is beta software, if you pass the diacritizer [out-of-domain text](https://www.quora.com/What-is-in-domain-out-domain-and-open-domain-data), English, pidgin or any other non-Yorùbá text, you will experience very marvelous, black-box results. 
+
+Since this a work-in-progress and we are steadily improving, if you encounter any problems with correctness or performance, please submit [pull-requests](https://github.com/ruohoruotsi/iranlowo/pulls) with corrections or file an [issue](https://github.com/ruohoruotsi/iranlowo/issues).
