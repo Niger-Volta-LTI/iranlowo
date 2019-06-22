@@ -30,7 +30,7 @@
 * [ ] Dataset scoring (proximity to correctly diacritized text, LM perplexity, KL divergence)
 
 ## Installation
-Available on the [Python Package Index (PyPI)](https://pypi.org/project/iranlowo/) &rarr; install with `pip install iranlowo`
+Obtainable from the [Python Package Index (PyPI)](https://pypi.org/project/iranlowo/) &rarr; `pip install iranlowo`
 
 ## Example
 
