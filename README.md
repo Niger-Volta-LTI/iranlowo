@@ -59,3 +59,7 @@ PRED AVG SCORE: -0.0037, PRED PPL: 1.0037
 This is beta software, if you pass the diacritizer [out-of-domain text](https://www.quora.com/What-is-in-domain-out-domain-and-open-domain-data), English, pidgin or any other non-Yorùbá text, you will experience very marvelous, black-box results. 
 
 Since this a work-in-progress and we are steadily improving, if you encounter any problems with correctness or performance, please submit [pull-requests](https://github.com/ruohoruotsi/iranlowo/pulls) with corrections or file an [issue](https://github.com/ruohoruotsi/iranlowo/issues).
+
+## License
+ 
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
