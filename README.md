@@ -38,7 +38,18 @@ Obtainable from the [Python Package Index (PyPI)](https://pypi.org/project/iranl
 
 <img src="https://raw.githubusercontent.com/ruohoruotsi/iranlowo/master/docs/install.gif" width="700">
 
-* Diacritize a few phrases
+* Diacritize a phrase
+```$ python
+   Python 3.7.3 (default, Mar 27 2019, 16:54:48)
+   [Clang 4.0.1 (tags/RELEASE_401/final)] :: Anaconda, Inc. on darwin
+   Type "help", "copyright", "credits" or "license" for more information.
+   >>> import iranlowo.adr as ránlọ
+   >>> ránlọ.diacritize_text("lootoo ni pe ojo gbogbo ni ti ole")
+   PRED AVG SCORE: -0.0037, PRED PPL: 1.0037
+   'lóòtóọ́ ni pé ọjọ́ gbogbo ni ti olè' 
+```
+
+* Diacritize phrases, note we use `ipython` only because it renders nicer, easy-to-read text-colours in the terminal!
 
 <img src="https://raw.githubusercontent.com/ruohoruotsi/iranlowo/master/docs/adr.gif" width="700">
 
