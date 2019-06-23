@@ -34,13 +34,14 @@ Obtainable from the [Python Package Index (PyPI)](https://pypi.org/project/iranl
 
 ## Example
 
-* Show computing environment and `pip install iranlowo`
+* Show computing environment and installation process
 
-<img src="https://raw.githubusercontent.com/ruohoruotsi/iranlowo/master/docs/install.gif" width="500">
+<img src="https://raw.githubusercontent.com/ruohoruotsi/iranlowo/master/docs/install.gif" width="700">
 
 * Diacritize a few phrases
 
-<img src="https://raw.githubusercontent.com/ruohoruotsi/iranlowo/master/docs/adr.gif" width="500">
+<img src="https://raw.githubusercontent.com/ruohoruotsi/iranlowo/master/docs/adr.gif" width="700">
+
 ## Disclaimer
 
 This is beta software, if you pass the diacritizer [out-of-domain text](https://www.quora.com/What-is-in-domain-out-domain-and-open-domain-data), English, pidgin or any other non-Yorùbá text, you will experience very marvelous, black-box results. 
