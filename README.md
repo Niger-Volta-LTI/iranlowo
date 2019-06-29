@@ -1,5 +1,5 @@
 # Ìrànlọ́wọ́
-[![Build Status](https://travis-ci.org/Niger-Volta-LTI/iranlowo.svg?token=DjfQAQyyoxFCdeCmWju3&branch=master)](https://travis-ci.org/Niger-Volta-LTI/iranlowo)
+[![Build Status](https://travis-ci.org/Niger-Volta-LTI/iranlowo.svg?branch=master)](https://travis-ci.org/Niger-Volta-LTI/iranlowo)
 [![PyPI](https://img.shields.io/pypi/v/iranlowo.svg)](https://pypi.org/project/iranlowo)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/iranlowo.svg)
 [![License](https://black.readthedocs.io/en/stable/_static/license.svg)](https://github.com/ruohoruotsi/iranlowo/blob/master/LICENSE)
