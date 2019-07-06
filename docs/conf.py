@@ -55,3 +55,6 @@ html_static_path = ['_static']
 
 autodoc_mock_imports = ["torch"]
 
+master_doc = 'index'
+
+
