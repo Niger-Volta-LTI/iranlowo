@@ -1,6 +1,5 @@
 bs4
 configargparse
-torch
 numpy
 requests
 tqdm
