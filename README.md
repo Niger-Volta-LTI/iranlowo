@@ -12,15 +12,14 @@
 ### ADR tools
 * [X] Strip all diacritics from word-types
 * [X] Verify that text is NFC or NFD
-* [X] Canonicalize a corpus (from MS Word or elsewhere) &rarr; NFC
+* [X] Normalize a corpus (from MS Word or elsewhere) &rarr; NFC
 * [X] Split long sentences on certain characters like `;`,`:`, etc
 * [X] Automatically restore correct diacritics using a pre-trained model
 * [X] Find all variants of all word-type in a given corpus
 * [ ] Partially strip diacritics from word-types
 
 ### Ready to use webpage scrapers
-* [X] Bíbélì Mímọ́
-* [X] Yoruba Bible - Bible Society of Nigeria
+* [X] Bíbélì Mímọ́  (Biblica, Bible Society of Nigeria)
 * [ ] Yorùbá Blog
 * [ ] BBC Yorùbá
 
