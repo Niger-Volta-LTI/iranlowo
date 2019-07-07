@@ -26,6 +26,14 @@ def test_strip_accents_file():
     assert(filecmp.cmp(reference_stripped_filepath, processed_stripped_filepath))   # processed matches reference
 
 
+def test_is_file_nfc():
+    cwd = os.getcwd()
+    src_filepath_pass = cwd + "/testdata/nfc.txt"
+    src_filepath_fail = cwd + "/testdata/nfc_fail.txt"
+    assert (ránlọ.is_file_nfc(src_filepath_pass) is True)
+    assert (ránlọ.is_file_nfc(src_filepath_fail) is False)
+
+
 def test_is_text_nfc():
     assert(ránlọ.is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?") is False)  # NFD
     assert(ránlọ.is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?") is True)   # NFC

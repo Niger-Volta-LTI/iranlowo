@@ -6,6 +6,7 @@ from __future__ import unicode_literals
 import pkg_resources
 import re
 import unicodedata
+from pathlib import Path
 
 from argparse import Namespace
 from collections import defaultdict
@@ -45,6 +46,21 @@ def strip_accents_file(filename, outfilename):
         with f:
             f.write(strip_accents_text(text))
         return True
+
+
+def is_file_nfc(path):
+    """
+
+    Args:
+        path: File path
+
+    Returns: True if file is valid nfc and False if not. Raises a ValueError if path is not correct
+
+    """
+    if Path(path).is_file():
+        text = open(path).read()
+        return is_text_nfc(text)
+    raise FileNotFoundError("{0} is not a valid file path".format(path))
 
 
 def is_text_nfc(text):
@@ -221,14 +237,14 @@ def split_corpus_on_symbol(filename, outfilename, symbol=","):
                         break
                     if num_words >= min_words_to_split:
                         if (
-                            num_words_ahead_of_curr_comma >= min_words_in_utt
-                            and len((curr_line)[curr_comma_position:].split())
-                            >= min_words_in_utt
+                                num_words_ahead_of_curr_comma >= min_words_in_utt
+                                and len((curr_line)[curr_comma_position:].split())
+                                >= min_words_in_utt
                         ):
                             f.write((curr_line)[0:curr_comma_position] + "\n")
 
                             # update vars
-                            curr_line = curr_line[curr_comma_position + 1 :]
+                            curr_line = curr_line[curr_comma_position + 1:]
                             num_words = len(curr_line.split())
                             num_commas = num_commas - 1
                             if num_commas > 0:
@@ -243,8 +259,8 @@ def split_corpus_on_symbol(filename, outfilename, symbol=","):
                             num_commas = num_commas - 1
                             if num_commas > 0:  # for say 3 commas
                                 curr_comma_position += (
-                                    curr_line[curr_comma_position + 1 :].index(symbol)
-                                    + 1
+                                        curr_line[curr_comma_position + 1:].index(symbol)
+                                        + 1
                                 )
                                 num_words_ahead_of_curr_comma = len(
                                     curr_line[0:curr_comma_position].split()
@@ -258,7 +274,6 @@ def split_corpus_on_symbol(filename, outfilename, symbol=","):
 
 
 def diacritize_text(undiacritized_text, verbose=False):
-
     # manually construct the options so we don't have to pass them in.
     opt = Namespace()
     opt.alpha = 0.0
@@ -329,9 +344,11 @@ def diacritize_text(undiacritized_text, verbose=False):
 
 
 if __name__ == "__main__":
-
-    # test
+    # # test
     print(is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?"))  # NFD
     print(is_text_nfc("Kílódé, ṣèbí àdúrà le̩ fé̩ gbà nbẹ?"))  # NFC
+    print(is_file_nfc('/Users/Olamilekan/Desktop/Machine Learning/OpenSource/yoruba-text/Book_of_Mormon/cleaned/doctrine_and_covenants.txt'))
 
-    file_info("../../tests/testdata/nfc.txt")
+    print(is_file_nfc('/Users/Olamilekan/Desktop/Machine Learning/OpenSource/yoruba-text/Owe/yoruba_proverbs_out.txt'))
+
+    # file_info("../../tests/testdata/nfc.txt")
