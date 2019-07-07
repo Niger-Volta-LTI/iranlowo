@@ -6,7 +6,6 @@ from __future__ import unicode_literals
 import pkg_resources
 import re
 import unicodedata
-from pathlib import Path
 
 from argparse import Namespace
 from collections import defaultdict

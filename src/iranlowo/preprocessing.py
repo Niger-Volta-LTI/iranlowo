@@ -1,19 +1,20 @@
 import csv
-import pprint
-import sys
 from pathlib import Path
 
 
-def is_valid_owé_format(text, n=4):  # Is this really needed? Maybe. Maybe not.
+def is_valid_owé_format(text, n=4, is_file=False):  # Is this really needed? Maybe. Maybe not.
     """
 
     Args:
+        is_file:
         text:
         n:
 
     Returns:
 
     """
+    if is_file:
+        text = open(text).readlines()
     text = [line for line in text if line != '\n']
     return len(text) % n == 0
 
