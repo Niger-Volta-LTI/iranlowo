@@ -1,20 +1,21 @@
 import csv
+import gzip
 from pathlib import Path
 
 
-def is_valid_owé_format(text, n=4, is_file=False):  # Is this really needed? Maybe. Maybe not.
+def is_valid_owé_format(text, n=4, is_file=False, **kwargs):  # Is this really needed? Maybe. Maybe not.
     """
 
     Args:
-        is_file:
-        text:
-        n:
+        text: The text to validate. Could be a text or file path. If file path, is_file should be True
+        n: Separator count.
+        is_file: True if text is path.
 
-    Returns:
+    Returns: True if the file format is valid.
 
     """
     if is_file:
-        text = open(text).readlines()
+        text = open(text).readlines() if not kwargs.get('is_zipped') else gzip.open(text).readlines()
     text = [line for line in text if line != '\n']
     return len(text) % n == 0
 
@@ -26,12 +27,19 @@ def convert_to_owé_format(path, sep=4, outpath=None, to_csv=False, **kwargs):
         to_csv:
         path:
         sep:
-        outpath:
+        outpath: Output path. Should be a list (of size 2) of directories to save the texts to i.e [yo_path, en_path]. If to_csv is True, should be a single csv path.
+        kwargs:
+             is_zipped : Boolean : Should be True if the file is zipped.
+             csv_header: True if csv header should be written. Only needed if to_csv is True.
+
 
     Returns:
 
     """
-    text = open(path).readlines()
+    if kwargs.get('is_zipped', False):
+        text = gzip.open(path).readlines()
+    else:
+        text = open(path).readlines()
 
     # @Todo: Raise an error (or should it be a warning?) if the text is not in the format available at https://github.com/Niger-Volta-LTI/youba-text/blob/master/Owe/youba_proverbs_out.txt.
 
@@ -39,12 +47,13 @@ def convert_to_owé_format(path, sep=4, outpath=None, to_csv=False, **kwargs):
 
     def get_chunk(txt, n):
         """
+        Divides the text in a file into a fixed number of chunks.
 
         Args:
-            txt:
-            n:
+            txt: The text to divide
+            n: Chunk size
 
-        Returns:
+        Returns: Generator of fixed chunks.
 
         """
         for line in range(0, len(txt), n):
@@ -80,11 +89,4 @@ def convert_to_owé_format(path, sep=4, outpath=None, to_csv=False, **kwargs):
                     writer.write(en_text)
         except IndexError:
             pass  # End of file reached
-
-
-if __name__ == "__main__":
-    a = convert_to_owé_format('/Users/Olamilekan/Desktop/Machine Learning/OpenSource/yoruba-text/Owe/yoruba_proverbs_out.txt',
-                              outpath=['/Users/Olamilekan/Desktop/Machine Learning/OpenSource/yoruba-text/Owe/yo',
-                                       '/Users/Olamilekan/Desktop/Machine Learning/OpenSource/yoruba-text/Owe/en'], sep=4)
-    print(list(a))
 
