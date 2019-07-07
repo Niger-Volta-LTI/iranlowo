@@ -28,8 +28,8 @@ def test_strip_accents_file():
 
 def test_is_file_nfc():
     cwd = os.getcwd()
-    src_filepath_pass = cwd + "/testdata/nfc.txt"
-    src_filepath_fail = cwd + "/testdata/nfc_fail.txt"
+    src_filepath_pass = cwd + "/tests/testdata/nfc.txt"
+    src_filepath_fail = cwd + "/tests/testdata/nfc_fail.txt"
     assert (ránlọ.is_file_nfc(src_filepath_pass) is True)
     assert (ránlọ.is_file_nfc(src_filepath_fail) is False)
 
