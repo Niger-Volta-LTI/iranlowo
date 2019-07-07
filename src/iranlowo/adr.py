@@ -57,10 +57,8 @@ def is_file_nfc(path):
     Returns: True if file is valid nfc and False if not. Raises a ValueError if path is not correct
 
     """
-    if Path(path).is_file():
-        text = open(path).read()
-        return is_text_nfc(text)
-    raise FileNotFoundError("{0} is not a valid file path".format(path))
+    text = open(path).read()
+    return is_text_nfc(text)
 
 
 def is_text_nfc(text):
