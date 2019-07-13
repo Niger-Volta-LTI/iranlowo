@@ -2,36 +2,33 @@ import gzip
 import os
 import sys
 
-import requests
 
 from gensim import interfaces
 from gensim.corpora.csvcorpus import CsvCorpus
-from gensim.corpora.textcorpus import lower_to_unicode, strip_multiple_whitespaces, walk
-from gensim.utils import deaccent
+from gensim.corpora.textcorpus import walk
 
-from iranlowo.preprocessing import is_valid_owé_format
+from iranlowo.preprocessing import is_valid_owé_format, normalize_diacritics_text
 from iranlowo.utils import is_text_nfc
 
 
 class Corpus(interfaces.CorpusABC):
-    def __init__(self, path=None, text=None, is_url=False, rlist=False, stream=False, fformat='txt', cformat=None, labels=False, preprocess=False):
+    def __init__(self, path=None, text=None, stream=False, fformat='txt', cformat=None, labels=False, preprocess=None):
         """
 
         Args:
             path:
             text:
-            **kwargs:
         """
         self.path = path
         self.text = text
-        self.rlist = rlist
         self.labels = labels
         self.stream = stream
         self.fformat = fformat
-        self.preprocess = preprocess
         self.cformat = cformat
-        self.is_url = is_url
-        self.data = text if text else self.read_file_or_filename()
+        self.preprocess = preprocess
+        if not self.preprocess:
+            self.preprocess = [normalize_diacritics_text]
+        self.data = self.read_file_filename_or_text(text=text) if text else self.read_file_filename_or_text()
         self.validate_format()
 
     def __iter__(self):
@@ -40,9 +37,6 @@ class Corpus(interfaces.CorpusABC):
 
     def __len__(self):
         return len(self.data)
-
-    def get_data(self):
-        pass
 
     @staticmethod
     def save_corpus(fname, corpus, id2word=None, metadata=False):
@@ -55,29 +49,24 @@ class Corpus(interfaces.CorpusABC):
                 num_text += 1
                 yield line
 
-    def read_file_or_filename(self, f=None):
+    def read_file_filename_or_text(self, f=None, text=None):
         """
 
         Returns:
 
         """
         path = f if f else self.path
-        text = None
-        print(len(self.path))
         out = []
-        if isinstance(path, list):
+        if text:
+            return self.handle_preprocessing(text) if self.preprocess else text
+        elif isinstance(path, list):
             for f in path:
                 path.remove(f)
                 sys.setrecursionlimit(10000)
-                text = self.read_file_or_filename(f)
+                text = self.read_file_filename_or_text(f)
                 out.append(text)
         else:
-            if self.is_url:
-                r = requests.get(path)
-                if r.status_code in [200, 201]:
-                    text = r.text
-                    return text
-            elif isinstance(path, str):
+            if isinstance(path, str):
                 if self.fformat == "txt":
                     text = open(path)
                 elif self.fformat == "csv":
@@ -87,22 +76,15 @@ class Corpus(interfaces.CorpusABC):
             else:
                 text = self.path.seek(0)
 
-            if not self.stream:
-                text = text.read() if not self.rlist else text.readlines()
-                print(text)
-                if self.preprocess:
-                    text = self.handle_preprocessing(text)
-                return text
-            else:
-                self.streamfile(text)
+            text = text.read() if not self.stream else ''.join(list(self.streamfile(text)))
+            return self.handle_preprocessing(text) if self.preprocess else text
 
     def handle_preprocessing(self, text):
         if callable(self.preprocess):
             return self.preprocess(text)
         if isinstance(self.preprocess, list):
-            prep_list = self.preprocess if isinstance(self.preprocess, list) else [lower_to_unicode, deaccent, strip_multiple_whitespaces]
-            for technique in prep_list:
-                text = technique(self.data)
+            for technique in self.preprocess:
+                text = technique(text)
             return text
 
     def validate_format(self):
@@ -113,7 +95,7 @@ class Corpus(interfaces.CorpusABC):
         """
         data = self.data
         if isinstance(data, list):
-            data = ' '.join(data)
+            data = ''.join(data)
         if not self.cformat and not is_text_nfc(data):
             raise TypeError("The corpus does not comply to the NFC corpus format")
         elif self.cformat == "owe":
@@ -148,4 +130,3 @@ class DirectoryCorpus(Corpus):
     def read_files(self):
         for path in self.flist:
             yield os.path.join(self.path_dir, path)
-

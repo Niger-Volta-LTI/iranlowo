@@ -1,3 +1,4 @@
+gensim
 bs4
 configargparse
 torch
