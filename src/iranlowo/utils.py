@@ -2,6 +2,8 @@ import re
 import unicodedata
 from collections import defaultdict
 
+from pathlib import Path
+
 from iranlowo.preprocessing import strip_accents_text
 
 
@@ -25,6 +27,10 @@ def is_text_nfc(text):
         return True
     else:
         return False
+
+
+def string_to_path(string):
+    return Path(string)
 
 
 def file_info(filename):

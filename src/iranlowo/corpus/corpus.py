@@ -1,7 +1,5 @@
 import gzip
 import os
-import sys
-
 
 from gensim import interfaces
 from gensim.corpora.csvcorpus import CsvCorpus
@@ -26,6 +24,7 @@ class Corpus(interfaces.CorpusABC):
         self.fformat = fformat
         self.cformat = cformat
         self.preprocess = preprocess
+        assert self.path or self.text, "You should pass either a path or text to read data from."
         if not self.preprocess:
             self.preprocess = [normalize_diacritics_text]
         self.data = self.read_file_filename_or_text(text=text) if text else self.read_file_filename_or_text()
@@ -61,10 +60,9 @@ class Corpus(interfaces.CorpusABC):
             return self.handle_preprocessing(text) if self.preprocess else text
         elif isinstance(path, list):
             for f in path:
-                path.remove(f)
-                sys.setrecursionlimit(10000)
                 text = self.read_file_filename_or_text(f)
                 out.append(text)
+            return out
         else:
             if isinstance(path, str):
                 if self.fformat == "txt":
@@ -119,14 +117,16 @@ class Corpus(interfaces.CorpusABC):
 
 class DirectoryCorpus(Corpus):
     def __init__(self, path, **kwargs):
-        self.path_dir = path
-        walked = list(walk(self.path_dir))
-        self.depth = walked[0][0]
-        self.dirnames = walked[0][2]
-        self.flist = walked[0][3]
+        self.dir_path = path
+        self.depth = kwargs.get('min_depth', 0)
         self.path = list(self.read_files())
         super(DirectoryCorpus, self).__init__(path=self.path, **kwargs)
 
     def read_files(self):
-        for path in self.flist:
-            yield os.path.join(self.path_dir, path)
+        walked = list(walk(self.dir_path))
+        if not walked:
+            raise NotADirectoryError("'{}' is not a valid directory".format(self.dir_path))
+        for depth, dirpath, _, filenames in walked:
+            if self.depth <= depth:
+                for path in filenames:
+                    yield os.path.join(dirpath, path)

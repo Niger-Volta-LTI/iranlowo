@@ -1,5 +1,6 @@
 import string
 import unittest
+from pathlib import Path
 
 from iranlowo import corpus
 from tests.utils import datapath
@@ -8,6 +9,7 @@ from tests.utils import datapath
 class TestTextCorpus(unittest.TestCase):
     def setUp(self):
         self.corpus_class = corpus.Corpus
+        self.directory_loader = corpus.DirectoryCorpus
         self.txt_extension = 'txt'
         self.csv_extension = 'csv'
         self.gzip_extension = 'gzip'
@@ -48,6 +50,19 @@ class TestTextCorpus(unittest.TestCase):
         for index, entry in enumerate(lines):
             corpus = self.corpus_class(text=entry, preprocess=preprocessing[index])
             self.assertEqual(corpus.data, expected[index])
+
+    def test_load_corpus_from_directory(self):
+        direc = datapath('dirdata')
+        invalid_dir = datapath('test_data')
+        multi_dir = datapath()
+        path = Path(direc).glob('*')
+        dir_corpus = self.directory_loader(path=direc)
+        self.assertEqual(len(dir_corpus.data), len(list(path)))
+        with self.assertRaises(NotADirectoryError):
+            self.directory_loader(path=invalid_dir)
+        multi_corp = self.directory_loader(path=multi_dir)
+        multi_path = Path(multi_dir).glob('**/*')
+        self.assertEqual(len(multi_corp.data), len(list(multi_path))-1)
 
     def test_save(self):
         pass
