@@ -1,7 +1,8 @@
-gensim
 bs4
 configargparse
 torch
 numpy
 requests
 tqdm
+google-compute-engine
+gensim
