@@ -1,10 +1,11 @@
-import os
+import unittest
 
 from iranlowo import preprocessing
+from tests.utils import datapath
 
 
-def test_is_valid_owe_format():
-    cwd = os.getcwd()
-    fail_path = cwd + "/tests/testdata/nfc.txt"
+class IranlowoCorpusTest(unittest.TestCase):
 
-    assert preprocessing.is_valid_owé_format(fail_path) is False
+    def test_is_valid_owe_format(self):
+        fail_path = datapath('nfc.txt')
+        self.assertFalse(preprocessing.is_valid_owé_format(fail_path))

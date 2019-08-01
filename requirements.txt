@@ -4,3 +4,5 @@ torch
 numpy
 requests
 tqdm
+google-compute-engine
+gensim
