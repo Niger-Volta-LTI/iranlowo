@@ -1,3 +1,4 @@
+import os
 import re
 import unicodedata
 from collections import defaultdict
@@ -140,3 +141,11 @@ def file_info(filename):
     print("# ambiguous 7 words : " + str(ambiguous_words_7))
     print("# ambiguous 8 words : " + str(ambiguous_words_8))
     print("# ambiguous 9 words : " + str(ambiguous_words_9))
+
+
+def get_data_path():
+    data_dir = "iranlowo-data"
+    path = os.getenv('IRANLOWO_DATADIR', os.path.join("~", data_dir))
+    path = os.path.expanduser(path)
+    os.makedirs(path, exist_ok=True)
+    return path
