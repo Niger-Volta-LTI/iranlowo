@@ -6,3 +6,4 @@ requests
 tqdm
 google-compute-engine
 gensim
+ruamel.yaml

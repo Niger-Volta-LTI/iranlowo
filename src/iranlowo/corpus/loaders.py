@@ -1,4 +1,6 @@
 import os
+from ruamel.yaml import YAML
+from pathlib import Path
 
 from iranlowo.corpus import Corpus, DirectoryCorpus
 
@@ -23,7 +25,7 @@ class YorubaBlogCorpus(Corpus):
         Args:
             path:
         """
-        super(YorubaBlogCorpus, self).__init__(path=self.path, **kwargs)
+        super(YorubaBlogCorpus, self).__init__(path=self.path)
 
 
 class BBCCorpus(Corpus):
@@ -33,8 +35,7 @@ class BBCCorpus(Corpus):
         Args:
             path:
         """
-        super(BBCCorpus, self).__init__(path=self.path, **kwargs)
-        super().__init__(path)
+        super(BBCCorpus, self).__init__(path=self.path)
 
 
 class BibeliCorpus(Corpus):
@@ -44,23 +45,48 @@ class BibeliCorpus(Corpus):
         Args:
             path:
         """
-        super(BibeliCorpus, self).__init__(path=self.path, **kwargs)
+        super(BibeliCorpus, self).__init__(path=self.path)
 
 
 class en(BaseLoader, DirectoryCorpus):
     def __init__(self):
         BaseLoader.__init__(self, corpus_path="Owe/en")
-        DirectoryCorpus.__init__(self, path=self.path)
+        DirectoryCorpus.__init__(self, path=self.path, cformat='owe')
 
 
 class yo(BaseLoader, DirectoryCorpus):
     def __init__(self):
         BaseLoader.__init__(self, corpus_path="Owe/yo")
-        DirectoryCorpus.__init__(self, path=self.path)
+        DirectoryCorpus.__init__(self, path=self.path, cformat='owe')
 
 
 class OweLoader(object):
     def __init__(self):
         self.en = en()
         self.yo = yo()
+
+
+def get_corpus(name, single=False):
+    yaml = YAML(typ='safe')
+    data = yaml.load(Path('/Users/Olamilekan/Desktop/Machine Learning/OpenSource/iranlowo/src/iranlowo/corpus/corpus.yml'))
+    if name not in data.keys():
+        raise ValueError("Corpus {} does not exist".format(name))
+    else:
+        if not single:
+            return Corpus(path=data[name]).data
+        else:
+            return DirectoryCorpus(path=data[name])
+
+
+def get_corpus_path(name):
+    yaml = YAML(typ='safe')
+    data = yaml.load(Path('corpus.yml'))
+    if name not in data.keys():
+        raise ValueError("Corpus {} does not exist".format(name))
+    else:
+        return data['name']
+
+
+def download(name):
+    pass
 

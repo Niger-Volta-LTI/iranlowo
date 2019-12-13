@@ -15,9 +15,5 @@ YORUBA_ALPHABETS = YORUBA_CONSONANTS + YORUBA_VOWELS
 alphabet_type_map = dict(diagraph=DIAGRAPH, consonants=SINGLE_LETTER_CONSONANTS + DIAGRAPH, vowels=NASAL_VOWELS + SYLLABIC_VOWELS)
 
 
-def contains(text, map):
-    return any(ext in text for ext in alphabet_type_map.get(map))
-
-
-def is_valid_yoruba_word():
-    pass
+def contains(text, value):
+    return any(ext in text for ext in alphabet_type_map.get(value))

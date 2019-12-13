@@ -2,6 +2,7 @@ from functools import lru_cache
 
 import gensim
 
+from iranlowo.corpus.loaders import get_corpus
 from iranlowo.data.small import contains
 
 
@@ -22,30 +23,29 @@ class Tokenizer(object):
 
     @lru_cache(maxsize=None)
     def syllable_tokenize(self, chunk=None):
-        def get_valid_syllable(syl, chunk):
-            if len(chunk) > 4:
+        def get_valid_syllable(syl, chunk_):
+            if len(chunk_) > 4:
                 raise ValueError("Yoruba has no syllable with more than 4 characters.")
-            if len(chunk) == 4:
-                if contains(chunk, "diagraph"):
-                    return chunk
-            elif len(chunk) == 3 and (contains(chunk, "diagraph") or contains(chunk, "consonants")):
-                return chunk
-            elif len(chunk) == 2:
-                if contains(chunk, "consonants") and contains(chunk, "vowels"):
-                    if contains(chunk[0], "consonants"):
-                        return chunk
+            if len(chunk_) == 4:
+                if contains(chunk_, "diagraph"):
+                    return chunk_
+            elif len(chunk_) == 3 and (contains(chunk_, "diagraph") or contains(chunk_, "consonants")):
+                return chunk_
+            elif len(chunk_) == 2:
+                if contains(chunk_, "consonants") and contains(chunk_, "vowels"):
+                    if contains(chunk_[0], "consonants"):
+                        return chunk_
                     else:
-                        return current_chunk[::-1]
-            elif len(chunk) == 1:
-                if contains(chunk, "vowels") and syl[0] == chunk:
-                    return chunk
+                        return chunk_[::-1]
+            elif len(chunk_) == 1:
+                if contains(chunk_, "vowels") and syl[0] == chunk_:
+                    return chunk_
             else:
                 return False
 
         tokens = []
         words = chunk if chunk else self.word_tokenize()
-        # syllables = get_corpus('syllables')
-        syllables = []
+        syllables = get_corpus('syllables')
         for word in words:  # Check if word exists in our syllable list. If it does, add it.
             if word in syllables:
                 tokens.append(word)
@@ -56,24 +56,18 @@ class Tokenizer(object):
                         valid_chunk = get_valid_syllable(word, current_chunk)
                         if valid_chunk:
                             tokens.append(valid_chunk)
-        return set(tokens)
+        return sorted(set(tokens))
 
     def subword_tokenize(self):
         pass
 
     def word_tokenize(self):
-        if not self.symbol and not self.map_entities:
-            tokens = gensim.utils.simple_tokenize(self.text)
+        if not self.symbol:
+            tokens = gensim.utils.simple_preprocess(self.text)
         else:
             tokens = [x for x in self.text.split(self.symbol)]
 
-        if self.map_entities:
-            tokens = self._map_entities(tokens)
-
         return tokens
-
-    def _map_entities(self, text):
-        return text
 
     def sentence_tokenize_simple(self, match='fullstop'):
         """
@@ -87,10 +81,12 @@ class Tokenizer(object):
         symbol_map = {"fullstop": ".", "whitespace": " ", "newline": "\n", "whitespace+newline": 'default'}
         if not symbol_map.get(match):
             return self.text.split()
+        print(symbol_map.get(match))
         return self.text.split(symbol_map.get(match))
 
     def sentence_tokenize(self, min_words_to_split=10, min_words_in_utt=5):
         output = []
+        self.symbol = '.' if not self.symbol else self.symbol
         for line in self.text.splitlines():
             if self.symbol in line:
                 num_words = len(line.split())
