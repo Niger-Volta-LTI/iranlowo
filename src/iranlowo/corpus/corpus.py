@@ -170,6 +170,11 @@ def get_corpus(name, niger_volta=False, **kwargs):
         if name not in nvc.keys():
             raise ValueError("Corpus {} does not exist".format(name))
         else:
+            if not os.environ.get("NIGER_VOLTA_CORPUS", None):
+                raise NotADirectoryError(
+                    "NIGER_VOLTA_CORPUS environment variable not found. Please, clone the corpus repository from https://github.com/Niger-Volta-LTI/yoruba-text and set to NIGER_VOLTA_CORPUS to it's "
+                    "path"
+                )
             path = os.path.join(os.environ["NIGER_VOLTA_CORPUS"], nvc[name]["path"])
             return file_or_dir(path, nvc[name]["mode"])
     else:
