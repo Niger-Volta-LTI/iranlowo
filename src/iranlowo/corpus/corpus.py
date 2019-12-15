@@ -11,7 +11,16 @@ from iranlowo.utils import is_text_nfc
 
 
 class Corpus(interfaces.CorpusABC):
-    def __init__(self, path=None, text=None, stream=False, fformat='txt', cformat=None, labels=False, preprocess=None):
+    def __init__(
+        self,
+        path=None,
+        text=None,
+        stream=False,
+        fformat="txt",
+        cformat=None,
+        labels=False,
+        preprocess=None,
+    ):
         """
 
         Args:
@@ -19,16 +28,23 @@ class Corpus(interfaces.CorpusABC):
             text:
         """
         self.path = path
+        print(self.path)
         self.text = text
         self.labels = labels
         self.stream = stream
         self.fformat = fformat
         self.cformat = cformat
         self.preprocess = preprocess
-        assert self.path or self.text, "You should pass either a path or text to read data from."
+        assert (
+            self.path or self.text
+        ), "You should pass either a path or text to read data from."
         if not self.preprocess:
             self.preprocess = [normalize_diacritics_text]
-        self.data = self.read_file_filename_or_text(text=text) if text else self.read_file_filename_or_text()
+        self.data = (
+            self.read_file_filename_or_text(text=text)
+            if text
+            else self.read_file_filename_or_text()
+        )
         self.validate_format()
 
     def __iter__(self):
@@ -70,12 +86,14 @@ class Corpus(interfaces.CorpusABC):
                     text = open(path)
                 elif self.fformat == "csv":
                     text = CsvCorpus(path, self.labels)
-                elif self.fformat == 'gzip':
+                elif self.fformat == "gzip":
                     text = gzip.open(path)
             else:
                 text = self.path.seek(0)
 
-            text = text.read() if not self.stream else ''.join(list(self.streamfile(text)))
+            text = (
+                text.read() if not self.stream else "".join(list(self.streamfile(text)))
+            )
             return self.handle_preprocessing(text) if self.preprocess else text
 
     def handle_preprocessing(self, text):
@@ -94,12 +112,16 @@ class Corpus(interfaces.CorpusABC):
         """
         data = self.data
         if isinstance(data, list):
-            data = ''.join(data)
+            data = "".join(data)
         if not self.cformat and not is_text_nfc(data):
             raise TypeError("The corpus does not comply to the NFC corpus format")
         elif self.cformat == "owe":
             if not is_valid_owé_format(data):
-                raise TypeError("The corpus does not comply to the {0} corpus format".format(self.cformat))
+                raise TypeError(
+                    "The corpus does not comply to the {0} corpus format".format(
+                        self.cformat
+                    )
+                )
             else:
                 return True
 
@@ -119,14 +141,16 @@ class Corpus(interfaces.CorpusABC):
 class DirectoryCorpus(Corpus):
     def __init__(self, path, **kwargs):
         self.dir_path = path
-        self.depth = kwargs.get('min_depth', 0)
+        self.depth = kwargs.get("min_depth", 0)
         self.path = list(self.read_files())
         super(DirectoryCorpus, self).__init__(path=self.path, **kwargs)
 
     def read_files(self):
         walked = list(walk(self.dir_path))
         if not walked:
-            raise NotADirectoryError("'{}' is not a valid directory".format(self.dir_path))
+            raise NotADirectoryError(
+                "'{}' is not a valid directory".format(self.dir_path)
+            )
         for depth, dirpath, _, filenames in walked:
             if self.depth <= depth:
                 for path in filenames:
@@ -140,22 +164,22 @@ def get_corpus(name, niger_volta=False, **kwargs):
         else:
             return DirectoryCorpus(path=path, **kwargs)
 
-    with open(os.path.join(os.path.dirname(__file__), 'corpus.yml'), 'r') as stream:
+    with open(os.path.join(os.path.dirname(__file__), "corpus.yml"), "r") as stream:
         data = yaml.safe_load(stream)
     if niger_volta:
-        nvc = data.get('niger_volta')
+        nvc = data.get("niger_volta")
         if name not in nvc.keys():
             raise ValueError("Corpus {} does not exist".format(name))
         else:
-            path = os.path.join(os.environ['NIGER_VOLTA_CORPUS'], nvc[name]['path'])
-            return file_or_dir(path, nvc[name]['mode'])
+            path = os.path.join(os.environ["NIGER_VOLTA_CORPUS"], nvc[name]["path"])
+            return file_or_dir(path, nvc[name]["mode"])
     else:
-        path = os.path.join(os.path.dirname(__file__), 'corpus/{}'.format(data['path']))
-        return file_or_dir(path, data['mode'])
+        path = os.path.join(os.path.dirname(__file__), "corpus/{}".format(data["path"]))
+        return file_or_dir(path, data["mode"])
 
 
 def get_corpus_path(name):
-    with open(os.path.join(os.path.dirname(__file__), 'corpus.yml'), 'r') as stream:
+    with open(os.path.join(os.path.dirname(__file__), "corpus.yml"), "r") as stream:
         data = yaml.safe_load(stream)
         if name not in data.keys():
             raise ValueError("Corpus {} does not exist".format(name))
@@ -165,4 +189,3 @@ def get_corpus_path(name):
 
 def download_corpus(name, uri=None):
     pass
-
