@@ -3,7 +3,7 @@ from functools import lru_cache
 import gensim
 
 from iranlowo.corpus.loaders import get_corpus
-from iranlowo.data.small import contains
+from iranlowo.corpus.small import contains
 
 
 class Tokenizer(object):

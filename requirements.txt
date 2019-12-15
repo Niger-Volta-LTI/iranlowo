@@ -1,3 +1,4 @@
+PyYAML
 bs4
 configargparse
 torch
@@ -6,4 +7,3 @@ requests
 tqdm
 google-compute-engine
 gensim
-ruamel.yaml

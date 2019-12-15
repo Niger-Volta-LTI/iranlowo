@@ -37,6 +37,5 @@ class TestTokenizer(unittest.TestCase):
 
     def test_sentence_tokenize(self):
         sentence_tokens = self.tokenizer(self.sentence_tokenize_text).sentence_tokenize()
-        print(sentence_tokens)
         self.assertEqual(len(sentence_tokens), 7)
 
