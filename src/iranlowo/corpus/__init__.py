@@ -1,2 +1,2 @@
-from .corpus import Corpus, DirectoryCorpus
-from .loaders import OweLoader, YorubaBlogCorpus, BBCCorpus, BibeliCorpus
+from .corpus import Corpus, DirectoryCorpus, get_corpus, get_corpus_path, download_corpus
+

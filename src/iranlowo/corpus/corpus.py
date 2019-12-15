@@ -1,6 +1,7 @@
 import gzip
 import os
 
+import yaml
 from gensim import interfaces
 from gensim.corpora.csvcorpus import CsvCorpus
 from gensim.corpora.textcorpus import walk
@@ -130,3 +131,38 @@ class DirectoryCorpus(Corpus):
             if self.depth <= depth:
                 for path in filenames:
                     yield os.path.join(dirpath, path)
+
+
+def get_corpus(name, niger_volta=False, **kwargs):
+    def file_or_dir(path, mode):
+        if mode == "single":
+            return Corpus(path=path, **kwargs)
+        else:
+            return DirectoryCorpus(path=path, **kwargs)
+
+    with open(os.path.join(os.path.dirname(__file__), 'corpus.yml'), 'r') as stream:
+        data = yaml.safe_load(stream)
+    if niger_volta:
+        nvc = data.get('niger_volta')
+        if name not in nvc.keys():
+            raise ValueError("Corpus {} does not exist".format(name))
+        else:
+            path = os.path.join(os.environ['NIGER_VOLTA_CORPUS'], nvc[name]['path'])
+            return file_or_dir(path, nvc[name]['mode'])
+    else:
+        path = os.path.join(os.path.dirname(__file__), 'corpus/{}'.format(data['path']))
+        return file_or_dir(path, data['mode'])
+
+
+def get_corpus_path(name):
+    with open(os.path.join(os.path.dirname(__file__), 'corpus.yml'), 'r') as stream:
+        data = yaml.safe_load(stream)
+        if name not in data.keys():
+            raise ValueError("Corpus {} does not exist".format(name))
+        else:
+            return os.path.join(os.path.dirname(__file__), data[name])
+
+
+def download_corpus(name, uri=None):
+    pass
+
