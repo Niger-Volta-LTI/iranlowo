@@ -175,7 +175,9 @@ def get_corpus(name, niger_volta=False, **kwargs):
     else:
         if name not in data.keys():
             raise ValueError("Corpus {} does not exist".format(name))
-        path = os.path.join(os.path.dirname(__file__), "corpus/{}".format(data[name]["path"]))
+        path = os.path.join(
+            os.path.dirname(__file__), "corpus/{}".format(data[name]["path"])
+        )
         return file_or_dir(path, data[name]["mode"])
 
 
