@@ -28,7 +28,6 @@ class Corpus(interfaces.CorpusABC):
             text:
         """
         self.path = path
-        print(self.path)
         self.text = text
         self.labels = labels
         self.stream = stream
