@@ -7,12 +7,6 @@ from pathlib import Path
 
 from iranlowo.preprocessing import strip_accents_text
 
-module_path = os.path.dirname(__file__)
-
-
-def datapath(fname):
-    return os.path.join(module_path, 'data', fname)
-
 
 def is_file_nfc(path):
     """
@@ -155,5 +149,3 @@ def get_data_path():
     path = os.path.expanduser(path)
     os.makedirs(path, exist_ok=True)
     return path
-
-
