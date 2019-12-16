@@ -163,7 +163,7 @@ def get_corpus(name, niger_volta=False, **kwargs):
         else:
             return DirectoryCorpus(path=path, **kwargs)
 
-    print(os.path.join(os.path.dirname(__file__)))
+    print(os.environ.get('NIGER_VOLTA_CORPUS'))
     with open(os.path.join(os.path.dirname(__file__), "corpus.yml"), "r") as stream:
         data = yaml.safe_load(stream)
     if niger_volta:
