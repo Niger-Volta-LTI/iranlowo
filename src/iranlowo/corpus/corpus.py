@@ -7,7 +7,8 @@ from gensim.corpora.csvcorpus import CsvCorpus
 from gensim.corpora.textcorpus import walk
 
 from iranlowo.preprocessing import is_valid_owé_format, normalize_diacritics_text
-from iranlowo.utils import is_text_nfc
+from iranlowo.utils import is_text_nfc, datapath
+import gensim
 
 
 class Corpus(interfaces.CorpusABC):
@@ -163,7 +164,8 @@ def get_corpus(name, niger_volta=False, **kwargs):
         else:
             return DirectoryCorpus(path=path, **kwargs)
 
-    with open(os.path.join(os.path.dirname(__file__), "corpus.yml"), "r") as stream:
+    print(datapath("corpus.yml"))
+    with open(datapath("corpus.yml"), "r") as stream:
         data = yaml.safe_load(stream)
     if niger_volta:
         nvc = data.get("niger_volta")
@@ -180,14 +182,12 @@ def get_corpus(name, niger_volta=False, **kwargs):
     else:
         if name not in data.keys():
             raise ValueError("Corpus {} does not exist".format(name))
-        path = os.path.join(
-            os.path.dirname(__file__), "corpus/{}".format(data[name]["path"])
-        )
+        path = datapath("corpus/{}".format(data[name]['path']))
         return file_or_dir(path, data[name]["mode"])
 
 
 def get_corpus_path(name):
-    with open(os.path.join(os.path.dirname(__file__), "corpus.yml"), "r") as stream:
+    with open(datapath("corpus.yml"), "r") as stream:
         data = yaml.safe_load(stream)
         if name not in data.keys():
             raise ValueError("Corpus {} does not exist".format(name))
