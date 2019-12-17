@@ -1,0 +1,16 @@
+niger_volta:
+      yoruba_blog:
+          path: "TheYorubaBlog/theyorubablog_dot_com.txt"
+          mode: single
+      owe_yoruba:
+          path: " "
+          mode: dir
+      quran_mimo:
+          path: " "
+          mode: dir
+      asubiaro:
+          path: " "
+          mode: single
+syllables:
+      path: "syllables.txt"
+      mode : single
