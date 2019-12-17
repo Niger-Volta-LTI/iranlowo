@@ -1,1 +1,3 @@
 include src/iranlowo/models/yo_adr_soft_attention_release.pt
+include src/iranlowo/corpus/corpus/*.txt
+include src/iranlowo/corpus/*.yml

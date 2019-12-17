@@ -4,7 +4,8 @@ from iranlowo.corpus import loaders, corpus
 
 
 class TestCoprusLoader(unittest.TestCase):
-    def test_load_yoruba_blog(self):
+    def test_load_yoruba_blog_raises_error(self):
+        os.environ['NIGER_VOLTA_CORPUS'] = '/Users/Olamilekan/Desktop/Machine Learning/OpenSource/yoruba-text'
         yb = loaders.niger_volta_corpus('yoruba_blog')
         self.assertIsInstance(yb, corpus.Corpus)
 
